@@ -1,0 +1,13 @@
+global.login ='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=validateUser';
+global.employees ='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=getAllEmployees';
+global.salary='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=generateSalary&';
+global.leave='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=getAllEmployeesLeave';
+global.advance='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=getAllEmployeesAdvance';
+global.dashboard='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=getDashBoardData';
+global.saveEmployee='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=saveUpdateEmployeeData';
+global.employeeDelete='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=deleteEmployee&empid=';
+global.markPaid='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=saveUpdateEmployeeSalary';
+global.leaveUpdate='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=saveUpdateEmployeeLeaveData';
+global.deleteLeave='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=deleteEmployeeLeave&leaveid=';
+global.editAdvance='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=saveUpdateEmployeeAdvanceData';
+global.deleteAdvance='http://pinakininfo.co.in/Turipati/Admin/data/backendService.php?action=deleteEmployeeAdvance&advid=';
