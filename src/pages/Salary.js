@@ -19,6 +19,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SegmentedControlTab from "react-native-segmented-control-tab";
 import { showMessage, hideMessage } from "react-native-flash-message";
+import Picker from 'react-native-picker';
 
 
 
@@ -28,6 +29,7 @@ const basePx = 375
 function px2dp(px) {
   return px *  deviceW / basePx
 }
+
 
 const theme = {
   ...DefaultTheme,
@@ -66,9 +68,14 @@ export default class Salary extends Component<Props> {
     var days = new Date(year, month, 0).getDate();
     console.log('days>>>>>>>>>>'+days);
 
+    var m_names = ['January', 'February', 'March', 
+               'April', 'May', 'June', 'July', 
+               'August', 'September', 'October', 'November', 'December'];
+
     this.setState({
       currentMonth:month,
-      currentYear: year
+      currentYear: year,
+      currentMonthName: m_names[date.getMonth()],
     })
 
   NetInfo.isConnected.fetch().then(isConnected => {
@@ -186,7 +193,7 @@ showAlert(){
 
   salaryList(){
   if(this.state.connected==true){
-       
+       console.log('salary list >>>>>>'+this.state.currentMonth);
     Keyboard.dismiss();
       fetch(global.salary+'month='+this.state.currentMonth+'&year='+this.state.currentYear, {
       method: 'GET',
@@ -218,6 +225,7 @@ showAlert(){
         })
        .catch((error) => {
           console.error('error>>>>>.'+error);
+          console.error('URL>>>>>.'+global.salary+'month='+this.state.currentMonth+'&year='+this.state.currentYear);
         });
     
   }
@@ -236,11 +244,137 @@ showAlert(){
     },()=>{console.log('Selected Index>>>>>>>>>>>>>'+this.state.selectedIndex)});
   };
 
+  filter(){
+    let dataSet = [['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], ["2019", "2020","2021"] ];
+    var monthList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+      var defaultMonth= this.state.currentMonthName;
+
+      Picker.init({
+          pickerData: dataSet,
+          pickerTitleText: " ",
+          pickerConfirmBtnText: "DONE",
+          pickerCancelBtnText: "CANCEL",
+          selectedValue: [defaultMonth],
+          onPickerConfirm: data => {
+              this.salaryList();
+            
+          },
+          onPickerCancel: data => {
+              console.log(data);
+          },
+          onPickerSelect: data => {
+              console.log(data[0]);
+              console.log(monthList.indexOf((data[0])));
+
+              switch(data[0]) {
+                case "January":
+                  this.setState({
+                    currentMonth: 1,
+                    currentMonthName:'January'
+                  })
+                  break;
+                case "February":
+                  this.setState({
+                    currentMonth: 2,
+                    currentMonthName:'February'
+                  })
+                  break;
+                case "March":
+                  this.setState({
+                    currentMonth: 3,
+                    currentMonthName:'March'
+                  })
+                  break;
+                  case "April":
+                  this.setState({
+                    currentMonth: 4,
+                    currentMonthName:'April'
+                  })
+                  break;
+                  case "May":
+                  this.setState({
+                    currentMonth: 5,
+                    currentMonthName:'May'
+                  })
+                  break;
+                  case "June":
+                  this.setState({
+                    currentMonth: 6,
+                    currentMonthName:'June'
+                  })
+                  break;
+                  case "July":
+                  this.setState({
+                    currentMonth: 7,
+                    currentMonthName:'July'
+                  })
+                  break;
+                  case "August":
+                  this.setState({
+                    currentMonth: 8,
+                    currentMonthName:'August'
+                  })
+                  break;
+                  case "September":
+                  this.setState({
+                    currentMonth: 9,
+                    currentMonthName:'September'
+                  })
+                  break;
+                  case "October":
+                  this.setState({
+                    currentMonth: 10,
+                    currentMonthName:'October'
+                  })
+                  break;
+                   case "November":
+                  this.setState({
+                    currentMonth: 11,
+                    currentMonthName:'November'
+                  })
+                  break;
+                   case "December":
+                  this.setState({
+                    currentMonth: 12,
+                    currentMonthName:'December'
+                  })
+                  break;
+                default:
+                  this.setState({
+                    currentMonth: 1,
+                    currentMonthName:'January'
+                  })
+              }
+
+              this.setState({
+                currentYear: data[1]
+              }, console.log('>>>>>>>>>>>>>>'+this.state.currentMonth))
+          }
+      });
+      Picker.show();
+  }
+
   render() {
     return (
        <PaperProvider theme={theme}>
 
         <View style={styles.container}>
+        <View style={{width:'100%', flexDirection:'row', height:40, backgroundColor:'#06A2C3', justifyContent:'space-between', alignItems:'center', paddingRight:'5%', paddingLeft:'5%'}}>
+            <View>
+              <Text style={{color:'white'}}>SALARY</Text>
+            </View>
+            <View>
+              <Text></Text>
+            </View>
+            <TouchableOpacity onPress={()=>{this.filter()}} style={{width:140, justifyContent:'flex-end', alignItems:'center', height:30, borderRadius:50, flexDirection:'row'}}>
+              <Icon name="filter" size={px2dp(20)} color="white" style={{paddingRight:10}}/>
+              <View style={{justifyContent:'center', alignItems:'center'}}>
+                <Text style={{color:'white', fontSize:12}}>{this.state.currentMonthName}</Text>
+                <Text style={{color:'white', fontSize:12}}>{this.state.currentYear}</Text>
+                </View>
+            </TouchableOpacity>
+          </View>
           <SegmentedControlTab
             values={["Unpaid", "Paid"]}
             tabsContainerStyle={{width:'90%', alignItems:'center', marginTop:10}}
@@ -351,6 +485,10 @@ showAlert(){
                     <View style={{marginTop:5, flexDirection:'row'}}>
                       <Text>Advance: </Text>
                       <Text>Rs: {item.advancetaken}</Text>
+                    </View>
+                    <View style={{marginTop:5, flexDirection:'row'}}>
+                      <Text style={{color:'#06A2C3'}}>Paid: </Text>
+                      <Text style={{color:'#06A2C3'}}>{item.salarypaid}</Text>
                     </View>
                   </View>
                   <View style={{justifyContent:'center', alignItems:'center'}}>

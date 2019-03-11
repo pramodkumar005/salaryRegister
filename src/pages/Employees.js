@@ -322,7 +322,7 @@ checkBlank(){
   }else if(this.state.mobileno==''){
       errorMsg= 'Please enter mobile number';
       this.showAlert();
-  }else if(this.state.mobileno.length<=10){
+  }else if(this.state.mobileno.length!==10){
       errorMsg= 'Enter correct mobile number';
       this.showAlert();
   }else if(this.state.doj==''){

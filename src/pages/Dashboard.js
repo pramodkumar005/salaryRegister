@@ -64,9 +64,7 @@ componentWillReceiveProps(data){
       ],
       visible: false
     };
-
-     
-    
+    console.log('selected tab code >>>>>>>>>..'+this.props.selectedIndex)
   }
 
   componentWillMount() {
@@ -78,6 +76,19 @@ componentWillReceiveProps(data){
         console.log('User is logged in>>>> '+result);
       }
     })
+
+    if (this.props.selectedIndex==null){
+      console.log('Selected index is null');
+      this.setState({
+        index: 0
+      })
+    } else {
+      this.setState({
+        index: this.props.selectedIndex
+      })
+    }
+
+    
   }
 
   _handleIndexChange = index => this.setState({ index });

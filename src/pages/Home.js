@@ -45,7 +45,8 @@ export default class Home extends Component<Props> {
         paidCount: '',
         totalUnpaid: '',
         totalPaid: '',
-        currentMonth:''
+        currentMonth:'',
+        currentYear:''
     };
     
   }
@@ -66,7 +67,8 @@ componentWillMount() {
                'August', 'September', 'October', 'November', 'December'];
 
     this.setState({
-      currentMonth: m_names[date.getMonth()]
+      currentMonth: m_names[date.getMonth()],
+      currentYear: date.getFullYear()
     })
 }
 
@@ -184,29 +186,29 @@ signout(){
           
           <View style={{width:'100%', height:'50%', justifyContent:'center', alignItems:'center'}}>
             <View style={{width:'70%', marginBottom:20, flexDirection:'row', alignItems:'flex-end'}}>
-              <Text style={{color:'#06A2C3'}}>{this.state.currentMonth}</Text>
-              <View style={{borderBottomWidth:1, width:'85%', borderBottomColor:'#06A2C3'}}/>
+              <Text style={{color:'#06A2C3'}}>{this.state.currentMonth} {this.state.currentYear} </Text>
+              <View style={{borderBottomWidth:1, width:'65%', borderBottomColor:'#06A2C3'}}/>
             </View>
             <View style={{width:'80%', backgroundColor:'white', alignItems:'center', justifyContent:'space-around', flexDirection: 'row'}}>
-              <View  style={{alignItems:'center',padding:10, borderRadius:10, borderWidth:1, borderColor:'#06A2C3', width:'40%'}}>
+              <TouchableOpacity  style={{alignItems:'center',padding:10, borderRadius:10, borderWidth:1, borderColor:'#06A2C3', width:'40%'}} onPress={()=>{Actions.dashboard({selectedIndex:3})}}>
                 <Text style={{color:'#06A2C3', fontSize:22}}>{this.state.leaveCount}</Text>
                 <Text style={{color:'#06A2C3', fontSize:11}}>On Leave</Text>
-              </View>
-              <View  style={{alignItems:'center',padding:10, borderRadius:10, borderWidth:1, borderColor:'#06A2C3', width:'40%'}}>
+              </TouchableOpacity>
+              <TouchableOpacity  style={{alignItems:'center',padding:10, borderRadius:10, borderWidth:1, borderColor:'#06A2C3', width:'40%'}} onPress={()=>{Actions.dashboard({selectedIndex:4})}}>
                 <Text style={{color:'#06A2C3', fontSize:22}}>{this.state.advanceCount}</Text>
                 <Text style={{color:'#06A2C3', fontSize:11}}>Advance Taken</Text>
-              </View>
+              </TouchableOpacity>
             </View>
 
             <View style={{width:'80%', backgroundColor:'white', alignItems:'center', justifyContent:'space-around', flexDirection: 'row', marginTop:'8%'}}>
-              <View  style={{alignItems:'center',padding:10, borderRadius:10, borderWidth:1, borderColor:'#06A2C3', width:'40%'}}>
+              <TouchableOpacity  style={{alignItems:'center',padding:10, borderRadius:10, borderWidth:1, borderColor:'#06A2C3', width:'40%'}} onPress={()=>{Actions.dashboard({selectedIndex:2})}}>
                 <Text style={{color:'#06A2C3', fontSize:22}}>{this.state.unpaidCount}</Text>
                 <Text style={{color:'#06A2C3', fontSize:11}}>Unpaid Employee</Text>
-              </View>
-              <View  style={{alignItems:'center',padding:10, borderRadius:10, borderWidth:1, borderColor:'#06A2C3', width:'40%'}}>
+              </TouchableOpacity>
+              <TouchableOpacity  style={{alignItems:'center',padding:10, borderRadius:10, borderWidth:1, borderColor:'#06A2C3', width:'40%'}} onPress={()=>{Actions.dashboard({selectedIndex:2})}}>
                 <Text style={{color:'#06A2C3', fontSize:22}}>{this.state.paidCount}</Text>
                 <Text style={{color:'#06A2C3', fontSize:11}}>Paid Employee</Text>
-              </View>
+              </TouchableOpacity>
             </View>
             
           </View>
